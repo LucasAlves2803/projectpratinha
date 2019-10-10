@@ -1,0 +1,99 @@
+#include <iostream>
+using namespace std;
+struct times {
+   string time;
+   int vit,emp,der,jog,golfv,golso;
+   int pt,sg;
+};
+typedef times clubes;
+void partida(clubes []);
+void resultado(clubes *);
+void pontos (clubes *,int);
+void gols(clubes *,int);
+void tabela(clubes *, int);
+int main()
+{  typedef times clubes;
+   clubes dupla[2];
+   partida(dupla);
+    cout << "Hello world!" << endl;
+    return 0;
+}
+
+void partida(clubes d[])
+{  int i,todos=2;
+   d[0].time = "Flamengo";
+   d[1].time = "Flumimense";
+   for (i=0; i<todos ;i++){
+       d[i].vit = 0;
+       d[i].emp = 0;
+       d[i].der = 0;
+       d[i].jog = 0;
+       d[i].golfv = 0;
+       d[i].golso = 0;
+       d[i].sg = 0;
+       d[i].pt = 0;
+   }
+    // a ideia é que o resultado do jogo seja lido por um arquivo
+    // para teste eu coloco um resultado qualquer
+    d[0].jog++;
+    d[1].jog++;
+    d[0].golfv = 4;
+    d[1].golfv = 3;
+    resultado(d);
+    pontos(d,todos);
+    gols(d,todos);
+    tabela(d,todos);
+  }
+/*
+void zera (clubes * d, int todos)
+{
+   for (i=0; i<todos ;i++){
+       d[i].vit = 0;
+       d[i].emp = 0;
+       d[i].der = 0;
+       d[i].jog = 0;
+       d[i].golfv = 0;
+       d[i].golso = 0;
+       d[i].sg = 0;
+       d[i].pt = 0;
+   }
+}
+*/
+void resultado (clubes  *d){
+    if (d[0].golfv > d[1].golfv){
+        d[0].vit++;
+        d[1].der++;
+    }
+    else if (d[0].golfv < d[1].golfv){
+        d[1].vit++;
+        d[0].der++;
+    }
+    else{
+        d[1].emp++;
+        d[0].emp++;
+    }
+}
+
+void pontos (clubes * d, int todos)
+{   int i;
+    for (i=0; i < todos; i++)
+    d[i].pt = 3*d[i].vit + d[i].emp;
+}
+
+void gols (clubes * d,int todos){
+   int i;
+   for (i=0; i < todos; i++){
+        d[i].golso += d[i].golfv;
+        // saldo de gols
+        d[i].sg = d[i].golfv - d[i].golso;
+   }
+}
+
+void tabela (clubes * d, int todos){
+int i;
+cout << " Time | Pontos | Partidas | Vitorias | Empates | Derrotas | Golfv | Golso | Saldo " << endl;
+for (i =0 ; i < todos; i++){
+cout << d[i].time << "    " << d[i].pt << " " << d[i].jog << " " << d[i].vit << " " << d[i].emp
+<< " " << d[i].der << " " << d[i].golfv << " " << d[i].golso << " " << d[i].sg << endl;
+}
+}
